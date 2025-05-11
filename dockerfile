@@ -3,7 +3,8 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     build-essential \
     gcc \
     make \
@@ -12,11 +13,16 @@ RUN apt-get update && apt-get install -y \
     gdb \
     curl \
     vim \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /os-scheduler
 
 COPY . /os-scheduler
+
+RUN echo "--- Isi direktori /os-scheduler sebelum make ---" && \
+    ls -l /os-scheduler && \
+    echo "-------------------------------------------------"
 
 RUN make -C src
 

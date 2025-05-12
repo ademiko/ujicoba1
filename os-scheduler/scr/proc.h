@@ -1,0 +1,6 @@
+// filepath: src/proc.h
+struct proc {
+  ...
+  int priority; // nilai prioritas, makin kecil makin penting
+  ...
+};
